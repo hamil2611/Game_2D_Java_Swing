@@ -13,7 +13,12 @@ import static org.example.main.Game.*;
 public class LoadSave {
     public final static String PLAYER_ATLAS = "Player.png";
     public final static String LEVEL_ATLAS = "map/outside_sprites.png";
-
+    public final static String BUTTONS_ATLAS = "buttons_atlas.png";
+    public final static String MENU_BACKGROUND = "menu_background.png";
+    public final static String PAUSE_BACKGROUND="pause_menu.png";
+    public final static String SOUND_BUTTONS ="sound_button.png";
+    public final static String URM_BUTTONS = "urm_button.png";
+    public final static String VOLUME_BUTTONS = "volume_button.png";
     public static BufferedImage GetSpriteAtLas(String fileName) {
         InputStream is = LoadSave.class.getResourceAsStream("/static/" + fileName);
         BufferedImage img;

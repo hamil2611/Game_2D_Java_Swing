@@ -34,14 +34,13 @@ public class LevelManager {
         for (int h = 0; h < TILES_IN_HEIGHT; h++)
             for (int w = 0; w < TILES_IN_WIDTH; w++) {
                 int index = levelOne.getSpriteIndex(h,w);
-
                 if (index > -1) {
                     g.drawImage(loadSprites[index], w * TILES_SIZE , h * TILES_SIZE,TILES_SIZE,TILES_SIZE, null);
                 }
 
             }
     }
-    public void update(){
+    public void  update(){
 
     }
 
