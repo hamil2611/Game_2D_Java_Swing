@@ -34,19 +34,19 @@ public class PauseOverlay {
     }
 
     private void createVolumeButton() {
-        int volumeX = (int)(274*Game.SCALE);
-        int volumeY = (int)(235*Game.SCALE);
-        volumeButton = new VolumeButton(volumeX,volumeY,VOLUME_WIDTH,VOLUME_HEIGHT);
+        int volumeX = (int) (274 * Game.SCALE);
+        int volumeY = (int) (235 * Game.SCALE);
+        volumeButton = new VolumeButton(volumeX, volumeY, VOLUME_WIDTH, VOLUME_HEIGHT);
     }
 
     private void createURMButton() {
-        int urmY = (int) (300*Game.SCALE);
-        int resumeX = (int)(315*Game.SCALE);
-        int newX = (int)(385*Game.SCALE);
-        int homeX= (int)(455*Game.SCALE);
-        resumeButton = new UrmButton(resumeX,urmY,URM_WIDTH,URM_HEIGHT,0);
-        replayButton = new UrmButton(newX,urmY,URM_WIDTH,URM_HEIGHT,1);
-        menuButton = new UrmButton(homeX,urmY,URM_WIDTH,URM_HEIGHT,2);
+        int urmY = (int) (300 * Game.SCALE);
+        int resumeX = (int) (315 * Game.SCALE);
+        int newX = (int) (385 * Game.SCALE);
+        int homeX = (int) (455 * Game.SCALE);
+        resumeButton = new UrmButton(resumeX, urmY, URM_WIDTH, URM_HEIGHT, 0);
+        replayButton = new UrmButton(newX, urmY, URM_WIDTH, URM_HEIGHT, 1);
+        menuButton = new UrmButton(homeX, urmY, URM_WIDTH, URM_HEIGHT, 2);
     }
 
     private void createSoundButton() {
@@ -106,25 +106,20 @@ public class PauseOverlay {
         if (isIn(e, musicButton)) {
             if (musicButton.isMousePress())
                 musicButton.setMuted(!musicButton.isMuted());
-        }
-        else if (isIn(e, sfxButton)){
-            if(sfxButton.isMousePress())
+        } else if (isIn(e, sfxButton)) {
+            if (sfxButton.isMousePress())
                 sfxButton.setMuted(!sfxButton.isMuted());
-        }
-        else if(isIn(e,resumeButton)){
-            if(resumeButton.isMousePress()){
+        } else if (isIn(e, resumeButton)) {
+            if (resumeButton.isMousePress()) {
                 playing.resumeGame();
 
             }
-        }
-        else if(isIn(e,replayButton)){
-            if(replayButton.isMousePress()){
-                System.out.println("REPLAY1");
-
+        } else if (isIn(e, replayButton)) {
+            if (replayButton.isMousePress()) {
+                playing.resetAll();
             }
-        }
-        else if(isIn(e,menuButton)){
-            if(menuButton.isMousePress()){
+        } else if (isIn(e, menuButton)) {
+            if (menuButton.isMousePress()) {
                 GameState.state = GameState.MENU;
 
             }

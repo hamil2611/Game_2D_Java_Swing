@@ -16,13 +16,20 @@ public class HelpMethods {
     }
 
     private static boolean IsSolid(float x, float y, int[][] levelMap) {
-        if (x < 0 || x >= Game.GAME_WIDTH)
+        int maxWidth = levelMap[0].length * Game.TILES_SIZE;
+        if (x < 0 || x >= maxWidth) {
             return true;
+        }
+
         if (y < 0 || y >= Game.GAME_HEIGHT)
             return true;
         float xIndex = x / Game.TILES_SIZE;
         float yIndex = y / Game.TILES_SIZE;
-        int value = levelMap[(int) yIndex][(int) xIndex];
+        return IsTileSolid((int) xIndex, (int) yIndex, levelMap);
+    }
+
+    public static boolean IsTileSolid(int xTile, int yTile, int[][] levelMap) {
+        int value = levelMap[yTile][xTile];
         if (value >= 48 || value < 0 || value == 11) {
             return false;
         }
@@ -53,10 +60,38 @@ public class HelpMethods {
     }
 
     public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox, int[][] levelMap) {
-        if (!IsSolid(hitbox.x + 20*Game.SCALE, hitbox.y + hitbox.height + 10, levelMap))
-            if (!IsSolid(hitbox.x + hitbox.width - 20*Game.SCALE, hitbox.y + hitbox.height + 10, levelMap))
+        if (!IsSolid(hitbox.x + 20 * Game.SCALE, hitbox.y + hitbox.height + 10, levelMap))
+            if (!IsSolid(hitbox.x + hitbox.width - 20 * Game.SCALE, hitbox.y + hitbox.height + 10, levelMap))
                 return false;
         return true;
+    }
+
+    public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelMap) {
+        return IsSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height, levelMap);
+    }
+
+    public static boolean IsEnemyOnFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelMap) {
+        if (!IsSolid(hitbox.x + 20 * Game.SCALE + xSpeed - 20, hitbox.y + hitbox.height + 10, levelMap))
+            if (!IsSolid(hitbox.x + hitbox.width - 20 * Game.SCALE + xSpeed, hitbox.y + hitbox.height + 10, levelMap))
+                return false;
+        return true;
+    }
+
+    public static boolean IsAllTileWalkable(int xStart, int xEnd, int y, int[][] levelMap) {
+        for (int i = 0; i < xEnd - xStart; i++) {
+            if (IsTileSolid(xStart + i, y, levelMap)) ;
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isSightClear(int[][] levelMap, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int tileY) {
+        int firstXTile = (int) (firstHitbox.x / Game.TILES_SIZE);
+        int secondXTile = (int) (secondHitbox.x / Game.TILES_SIZE);
+        if (firstXTile > secondXTile)
+            return IsAllTileWalkable(secondXTile, firstXTile, tileY, levelMap);
+        else
+            return IsAllTileWalkable(firstXTile, secondXTile, tileY, levelMap);
     }
 
 }

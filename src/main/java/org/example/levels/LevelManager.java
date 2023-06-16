@@ -30,12 +30,12 @@ public class LevelManager {
 
     }
 
-    public void draw(Graphics g){
-        for (int h = 0; h < TILES_IN_HEIGHT; h++)
-            for (int w = 0; w < TILES_IN_WIDTH; w++) {
+    public void draw(Graphics g, int xLvlOffset){
+        for (int h = 0; h < levelOne.getLevelMap().length; h++)
+            for (int w = 0; w < levelOne.getLevelMap()[0].length; w++) {
                 int index = levelOne.getSpriteIndex(h,w);
-                if (index > -1) {
-                    g.drawImage(loadSprites[index], w * TILES_SIZE , h * TILES_SIZE,TILES_SIZE,TILES_SIZE, null);
+                if (index > -1 && index <48) {
+                    g.drawImage(loadSprites[index], w * TILES_SIZE - xLvlOffset, h * TILES_SIZE,TILES_SIZE,TILES_SIZE, null);
                 }
 
             }
