@@ -54,10 +54,11 @@ public class Goblin extends Enemy {
                     newSate(RUN);
                     break;
                 case RUN:
-                    if (canSeePlayer(levelMap, player))
+                    if (canSeePlayer(levelMap, player)){
                         turnTowardsPlayer(player);
-                    if(isPlayerCloseForAttack(player))
-                        newSate(ATTACK);
+                        if(isPlayerCloseForAttack(player))
+                            newSate(ATTACK);
+                    }
                     move(levelMap);
                     break;
                 case ATTACK:

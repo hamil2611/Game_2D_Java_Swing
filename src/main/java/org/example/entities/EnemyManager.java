@@ -27,8 +27,8 @@ public class EnemyManager {
         addEnemies();
     }
 
-    private void addEnemies() {
-        goblins = LoadSave.getGoblins();
+    public void addEnemies() {
+        goblins = LoadSave.getGoblins(playing.getCurrentLevel());
     }
 
     public void update(int[][] levelMap) {
@@ -42,14 +42,17 @@ public class EnemyManager {
     }
 
     private void drawGoblins(Graphics g, int xLvlOffset) {
+        int cnt=0;
         for (Goblin goblin : goblins){
             if(goblin.isActive()){
                 g.drawImage(goblinImg[goblin.getEnemyState()][goblin.getAniIndex()], (int) (goblin.getHitbox().x -xDrawOffset) - xLvlOffset + goblin.flipX , (int) (goblin.getHitbox().y-yDrawOffset), GOBLIN_WIDTH* goblin.flipW, GOBLIN_HEIGHT, null);
 //                goblin.drawHitbox(g,xLvlOffset);
 //                goblin.drawAttackBox(g,xLvlOffset);
+                cnt++;
             }
         }
-
+        if(cnt==0)
+            playing.setCompleted(true);
     }
 
     public void checkEnemyHit(Rectangle2D.Float attackBox){

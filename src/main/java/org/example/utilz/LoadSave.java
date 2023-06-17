@@ -26,6 +26,7 @@ public class LoadSave {
     public final static String PLAYING_BACKGROUND = "playing_background.png";
     public final static String GOBLIN_IMAGE = "goblin.png";
     public final static String HEALTH_POWER_BAR = "health_power_bar.png";
+    public final static String LEVEL_COMPLETED_BACKGROUND = "level_completed_background.png";
 
     public static BufferedImage GetSpriteAtLas(String fileName) {
         InputStream is = LoadSave.class.getResourceAsStream("/static/" + fileName);
@@ -38,11 +39,11 @@ public class LoadSave {
         return img;
     }
 
-    public static List<Goblin> getGoblins() {
+    public static List<Goblin> getGoblins(int level) {
         List<Goblin> list = new ArrayList<>();
         BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader("src/main/resources/static/map/level_one.txt"));
+            bufferedReader = new BufferedReader(new FileReader("src/main/resources/static/map/level_"+String.valueOf(level)+".txt"));
             List<String> lines = bufferedReader.lines().collect(Collectors.toList());
             for (int h = 0; h < lines.size(); h++) {
                 String[] values = lines.get(h).split("\s* ");
@@ -57,11 +58,11 @@ public class LoadSave {
         return list;
     }
 
-    public static int[][] getLevelMap() {
+    public static int[][] getLevelMap(int level) {
         int[][] levelMap;
         BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader("src/main/resources/static/map/level_one.txt"));
+            bufferedReader = new BufferedReader(new FileReader("src/main/resources/static/map/level_"+String.valueOf(level)+".txt"));
             List<String> lines = bufferedReader.lines().collect(Collectors.toList());
             levelMap = new int[lines.size()][lines.get(0).split("\s* ").length];
             for (int h = 0; h < levelMap.length; h++) {

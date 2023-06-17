@@ -20,7 +20,7 @@ import static org.example.utilz.HelpMethods.*;
 
 public class Player extends Entity {
     private BufferedImage[][] animations;
-    private int aniTick = 0, aniIndex = 0, aniSpeed = 12;
+    private int aniTick = 0, aniIndex = 0, aniSpeed = 18;
     private int playerAction = IDLE;
     private int playerDirection = -1;
     private boolean moving = false, attacking = false;
@@ -110,7 +110,7 @@ public class Player extends Entity {
         int startAni = playerAction;
         if (moving)
             playerAction = RUN;
-        else
+        else if(playerAction!=TAKE_HIT)
             playerAction = IDLE;
         if (inAir) {
             if (airSpeed < 0)
@@ -118,6 +118,7 @@ public class Player extends Entity {
             else
                 playerAction = FALL;
         }
+
         if (attacking){
             playerAction = ATTACK1;
 //            if(startAni!=ATTACK1){
@@ -141,6 +142,8 @@ public class Player extends Entity {
             aniTick = 0;
             aniIndex++;
             if (aniIndex >= getFramesAmount(playerAction)) {
+                if(playerAction==TAKE_HIT)
+                    playerAction=IDLE;
                 aniIndex = 0;
                 attacking=false;
                 attackChecked=false;
@@ -193,6 +196,7 @@ public class Player extends Entity {
 
     public void changeHealth(int value) {
         currentHealth += value;
+        playerAction = TAKE_HIT;
         if (currentHealth <= 0)
             currentHealth = 0;
         if (currentHealth >= maxHealth)

@@ -13,7 +13,7 @@ import static org.example.main.Game.*;
 public class TestReadFile {
     public static void main(String[] args) throws IOException {
 //        int[][] levelMap = new int[TILES_IN_HEIGHT][TILES_IN_WIDTH];
-//        BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/static/map/level_one.txt"));
+//        BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/static/map/level_1.txt"));
 //        List<String> lines = bufferedReader.lines().collect(Collectors.toList());
 //        for (int h = 0; h < TILES_IN_HEIGHT; h++) {
 //            String[] values = lines.get(h).split(" ");

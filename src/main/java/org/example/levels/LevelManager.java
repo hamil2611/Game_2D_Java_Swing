@@ -12,13 +12,17 @@ import static org.example.main.Game.TILES_SIZE;
 public class LevelManager {
     private Game game;
     private BufferedImage[] loadSprites;
-    private Level levelOne;
-    public LevelManager(Game game){
+    private Level levelMatrix;
+    private int level;
+    public LevelManager(Game game, int level){
         this.game = game ;
-        levelOne = new Level(LoadSave.getLevelMap());
+        this.level = level;
+        loadLevelMap(level);
+    }
+    public void loadLevelMap(int level){
+        levelMatrix = new Level(LoadSave.getLevelMap(level));
         importOutsideSprites();
     }
-
     private void importOutsideSprites() {
         BufferedImage img = LoadSave.GetSpriteAtLas(LoadSave.LEVEL_ATLAS);
         loadSprites = new BufferedImage[48];
@@ -31,9 +35,9 @@ public class LevelManager {
     }
 
     public void draw(Graphics g, int xLvlOffset){
-        for (int h = 0; h < levelOne.getLevelMap().length; h++)
-            for (int w = 0; w < levelOne.getLevelMap()[0].length; w++) {
-                int index = levelOne.getSpriteIndex(h,w);
+        for (int h = 0; h < levelMatrix.getLevelMap().length; h++)
+            for (int w = 0; w < levelMatrix.getLevelMap()[0].length; w++) {
+                int index = levelMatrix.getSpriteIndex(h,w);
                 if (index > -1 && index <48) {
                     g.drawImage(loadSprites[index], w * TILES_SIZE - xLvlOffset, h * TILES_SIZE,TILES_SIZE,TILES_SIZE, null);
                 }
@@ -41,10 +45,17 @@ public class LevelManager {
             }
     }
     public void  update(){
+    }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public Level getCurrentLevel(){
-        return levelOne;
+        return levelMatrix;
     }
 }
